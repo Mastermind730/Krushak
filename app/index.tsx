@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   View, 
   Text, 
@@ -8,10 +8,12 @@ import {
   FlatList, 
   Image, 
   StatusBar,
-  Animated 
+  Animated, 
+  Pressable
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from './constants/Colors';
+import { Href, router } from 'expo-router';
 
 const { width, height } = Dimensions.get('window');
 
@@ -63,7 +65,7 @@ const OnboardingScreen = ({ onComplete }) => {
       flatListRef.current.scrollToIndex({ index: currentIndex + 1 });
       setCurrentIndex(currentIndex + 1);
     } else {
-      onComplete();
+      router.push("/auth/sign-in" as Href);
     }
   };
   
@@ -158,7 +160,7 @@ const OnboardingScreen = ({ onComplete }) => {
         {isLastSlide ? (
           <TouchableOpacity 
             style={styles.getStartedButton} 
-            onPress={onComplete}
+            onPress={() => router.push("/auth/sign-in" as Href)}
             activeOpacity={0.8}
           >
             <LinearGradient
@@ -172,7 +174,7 @@ const OnboardingScreen = ({ onComplete }) => {
           </TouchableOpacity>
         ) : (
           <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={onComplete}>
+            <TouchableOpacity onPress={() => router.push("/auth/sign-in" as Href)}>
               <Text style={styles.skipText}>Skip</Text>
             </TouchableOpacity>
             
@@ -231,10 +233,9 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    alignItems: 'flex-end',
+    alignItems: 'center',
     paddingHorizontal: 30,
-    marginTop: 80
-    // marginBottom: 20,
+    marginTop: 20,
   },
   title: {
     fontSize: 28,
@@ -250,7 +251,11 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   footer: {
-    marginBottom: 50,
+    position: 'absolute',
+    bottom: 30,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 20,
   },
   pagination: {
     flexDirection: 'row',
@@ -267,7 +272,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 30,
+    paddingHorizontal: 10,
   },
   skipText: {
     fontSize: 16,
