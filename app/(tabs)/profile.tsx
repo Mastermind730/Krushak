@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, MaterialIcons, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 const ProfileScreen = ({ navigation }) => {
   return (
@@ -43,7 +44,7 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.profileInfo}>
           <Text style={styles.profileName}>ABC</Text>
           <Text style={styles.profileStatus}>Online</Text>
-          <TouchableOpacity style={styles.editButton}>
+          <TouchableOpacity style={styles.editButton} onPress={()=>router.push("/(tabs)/edit_profile")}>
             <Text style={styles.editButtonText}>Edit Profile</Text>
           </TouchableOpacity>
         </View>
