@@ -161,6 +161,7 @@ const OnboardingScreen = ({ onComplete }) => {
           <TouchableOpacity 
             style={styles.getStartedButton} 
             onPress={() => router.push("/auth/sign-in" as Href)}
+            // onPress={()=>{router.push("/(tabs)/profile")}}
             activeOpacity={0.8}
           >
             <LinearGradient

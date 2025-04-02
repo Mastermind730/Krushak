@@ -4,11 +4,9 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-nativ
 export default function LoginScreen() {
   return (
     <View style={styles.container}>
-      {/* Login Header */}
       <Text style={styles.header}>Log In</Text>
       <View style={styles.divider} />
 
-      {/* Phone Number Section */}
       <Text style={styles.sectionHeader}>Add Your Phone Number</Text>
       <Text style={styles.description}>
         Enter your phone number in order to Send to you OTP Security code.
@@ -36,10 +34,8 @@ export default function LoginScreen() {
 
       <View style={styles.divider} />
 
-      {/* Verify Section */}
       <View style={styles.verifySection}>
         <TouchableOpacity style={styles.checkbox}>
-          {/* You would add a check icon here */}
         </TouchableOpacity>
         <Text style={styles.verifyText}>
           I accept the <Text style={styles.boldText}>Terms and Conditions</Text>
