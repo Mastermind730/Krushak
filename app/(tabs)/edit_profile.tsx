@@ -15,31 +15,28 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import LottieView from 'lottie-react-native';
+import { router } from 'expo-router';
 
 const ProfileEditScreen = () => {
   const [formData, setFormData] = useState({
-    username: 'Anushka',
-    email: 'Anushka',
-    phoneNumber: 'Anushka',
-    password: 'Anushka',
+    username: '',
+    email: '',
+    phoneNumber: '',
+    password: '',
   });
-  const [profileImage, setProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState<string>();
   
-  // Animation references
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(50)).current;
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const growAnim = useRef(new Animated.Value(0.95)).current;
   
-  // Animation for leaf background
   const leafPosition1 = useRef(new Animated.Value(0)).current;
   const leafPosition2 = useRef(new Animated.Value(0)).current;
   
-  // Screen width for responsive sizing
   const screenWidth = Dimensions.get('window').width;
 
   useEffect(() => {
-    // Animate in the form
     Animated.parallel([
       Animated.timing(fadeAnim, {
         toValue: 1,
@@ -53,12 +50,10 @@ const ProfileEditScreen = () => {
       }),
     ]).start();
     
-    // Start background leaf animations
     animateLeaves();
   }, []);
 
   const animateLeaves = () => {
-    // Create subtle floating animation for background elements
     Animated.loop(
       Animated.sequence([
         Animated.timing(leafPosition1, {
@@ -95,7 +90,6 @@ const ProfileEditScreen = () => {
   };
 
   const animateButton = () => {
-    // Button press animation
     Animated.sequence([
       Animated.timing(growAnim, {
         toValue: 1.05,
@@ -109,7 +103,6 @@ const ProfileEditScreen = () => {
       }),
     ]).start();
     
-    // Rotate sun icon
     Animated.timing(rotateAnim, {
       toValue: 1,
       duration: 500,
@@ -121,7 +114,7 @@ const ProfileEditScreen = () => {
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ['images'],
       allowsEditing: true,
       aspect: [1, 1],
       quality: 0.8,
@@ -141,11 +134,9 @@ const ProfileEditScreen = () => {
 
   const handleUpdate = () => {
     animateButton();
-    // Implement actual update logic here
     console.log('Profile updated:', formData);
   };
 
-  // Interpolate rotation for sun icon
   const spin = rotateAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg'],
@@ -153,7 +144,6 @@ const ProfileEditScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Background Elements */}
       <Animated.View style={[styles.bgLeaf1, { transform: [{ translateY: leafPosition1 }] }]}>
         <FontAwesome5 name="leaf" size={80} color="rgba(76, 175, 80, 0.1)" />
       </Animated.View>
@@ -169,6 +159,7 @@ const ProfileEditScreen = () => {
         <TouchableOpacity 
           style={styles.backButton}
           activeOpacity={0.7}
+          onPress={()=>router.push("/(tabs)/profile")}
         >
           <MaterialIcons name="arrow-back" size={24} color="white" />
         </TouchableOpacity>
@@ -215,7 +206,6 @@ const ProfileEditScreen = () => {
         </TouchableOpacity>
 
         <View style={styles.inputGroupContainer}>
-          {/* Username Input */}
           <View style={styles.inputGroup}>
             <FontAwesome5 name="user" size={20} color="#388E3C" style={styles.inputIcon} />
             <TextInput
@@ -227,7 +217,6 @@ const ProfileEditScreen = () => {
             />
           </View>
 
-          {/* Email Input */}
           <View style={styles.inputGroup}>
             <MaterialIcons name="email" size={20} color="#388E3C" style={styles.inputIcon} />
             <TextInput
@@ -240,7 +229,6 @@ const ProfileEditScreen = () => {
             />
           </View>
 
-          {/* Phone Number Input */}
           <View style={styles.inputGroup}>
             <FontAwesome5 name="phone" size={20} color="#388E3C" style={styles.inputIcon} />
             <TextInput
@@ -253,7 +241,6 @@ const ProfileEditScreen = () => {
             />
           </View>
 
-          {/* Password Input */}
           <View style={styles.inputGroup}>
             <FontAwesome5 name="lock" size={20} color="#388E3C" style={styles.inputIcon} />
             <TextInput
@@ -287,7 +274,7 @@ const ProfileEditScreen = () => {
       {/* Agricultural decoration at bottom */}
       <View style={styles.bottomDecoration}>
         <LottieView
-          source={require('./plant-growing-animation.json')} // Replace with your Lottie animation file
+          source={require('./plant-growing-animation.json')} 
           style={styles.plantAnimation}
           autoPlay
           loop
@@ -313,24 +300,27 @@ const styles = StyleSheet.create({
   },
   backButton: {
     padding: 8,
+    marginBottom:14
   },
   headerTitle: {
     color: 'white',
     fontSize: 22,
     fontWeight: '600',
     marginLeft: 20,
+    marginBottom:14
   },
   sunIcon: {
     position: 'absolute',
     right: 20,
     top: 45,
+    marginTop:15
   },
   formContainer: {
     flex: 1,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     backgroundColor: 'white',
-    marginTop: -30,
+    marginTop: -10,
     paddingVertical: 30,
     paddingHorizontal: 20,
     elevation: 4,

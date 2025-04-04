@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, StatusBar, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, MaterialIcons, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 const ProfileScreen = ({ navigation }) => {
+    const screenWidth = Dimensions.get('window').width;
+  
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -137,9 +139,10 @@ const styles = StyleSheet.create({
   },
   profileCard: {
     alignItems: 'center',
-    marginHorizontal: 16,
+    marginHorizontal: 10,
     marginTop: -2,
-    borderRadius: 16,
+    borderRadius: 6,
+    width:'95%',
     backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
