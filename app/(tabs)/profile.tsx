@@ -52,7 +52,6 @@ const ProfileScreen = ({ navigation }) => {
         </View>
       </View>
 
-      {/* Menu Options with Enhanced Styling */}
       <ScrollView style={styles.menuContainer} showsVerticalScrollIndicator={false}>
         <MenuItem
           icon={<Feather name="user" size={22} color="#444" />}

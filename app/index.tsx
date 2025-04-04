@@ -165,10 +165,10 @@ const OnboardingScreen = ({ onComplete }) => {
         {isLastSlide ? (
           <TouchableOpacity
             style={styles.getStartedButton}
-            // onPress={() => router.push("/auth/sign-in" as Href)}
-            onPress={() => {
-              router.push("/(tabs)/profile" as Href);
-            }}
+            onPress={() => router.push("/auth/sign-in" as Href)}
+            // onPress={() => {
+            //   router.push("/(tabs)/profile" as Href);
+            // }}
             activeOpacity={0.8}
           >
             <LinearGradient
