@@ -30,21 +30,23 @@ const OnboardingScreen = ({ onComplete }) => {
       id: "1",
       title: "Connecting Farmers and Traders",
       description: "Stay updated on top market bids and raise your own product",
-      image: require("../assets/images/icon.png"), // Replace with your image paths
+      image:require("../assets/images/famer_cart.jpg"),
+      // image: require("../assets/images/icon.png"), // Replace with your image paths
     },
     {
+      
       id: "2",
       title: "Simplified Trading Process",
       description: "Easily list your products and let the market bid",
-      image: require("../assets/images/icon.png"), // Replace with your image paths
+      image:require("@/assets/images/farmer_phone.jpg"),
     },
     {
       id: "3",
       title: "Reliable Delivery Services",
       description:
         "From farm to market trust in every delivery.Ensuring your grains reach their destination safely.",
-      image: require("../assets/images/icon.png"), // Replace with your image paths
-    },
+        image:require("@/assets/images/farmer_bench.jpg"),
+      },
   ];
 
   const renderItem = ({ item }) => {
@@ -165,10 +167,10 @@ const OnboardingScreen = ({ onComplete }) => {
         {isLastSlide ? (
           <TouchableOpacity
             style={styles.getStartedButton}
-            onPress={() => router.push("/auth/sign-in" as Href)}
-            // onPress={() => {
-            //   router.push("/(tabs)/profile" as Href);
-            // }}
+            // onPress={() => router.push("/auth/sign-in" as Href)}
+            onPress={() => {
+              router.push("/(tabs)/market" as Href);
+            }}
             activeOpacity={0.8}
           >
             <LinearGradient
