@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TextInput, ScrollView, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Feather, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Feather } from '@expo/vector-icons';
 
-// Home Screen (Left screen in the design)
-const HomeScreen = () => {
+const Stack = createStackNavigator();
+
+// Home Screen
+const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#2b7a2b" barStyle="light-content" />
@@ -19,9 +22,9 @@ const HomeScreen = () => {
             placeholderTextColor="#888"
           />
         </View>
-        <View style={styles.cartIcon}>
+        <TouchableOpacity style={styles.cartIcon}>
           <Feather name="shopping-cart" size={24} color="#fff" />
-        </View>
+        </TouchableOpacity>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -72,7 +75,10 @@ const HomeScreen = () => {
 
         {/* Market Items */}
         <View style={styles.marketItems}>
-          <TouchableOpacity style={styles.marketItem}>
+          <TouchableOpacity 
+            style={styles.marketItem}
+            onPress={() => navigation.navigate('Detail')}
+          >
             <Image 
               source={{ uri: 'https://images.unsplash.com/photo-1633690034648-1c264150ee39' }} 
               style={styles.marketItemImage} 
@@ -84,7 +90,10 @@ const HomeScreen = () => {
             <Text style={styles.marketItemPrice}>₹300/kg</Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.marketItem}>
+          <TouchableOpacity 
+            style={styles.marketItem}
+            onPress={() => navigation.navigate('Detail')}
+          >
             <Image 
               source={{ uri: 'https://images.unsplash.com/photo-1600623050499-84929aad17c9' }} 
               style={styles.marketItemImage} 
@@ -96,7 +105,10 @@ const HomeScreen = () => {
             <Text style={styles.marketItemPrice}>₹20/kg</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.marketItem, styles.orangeItem]}>
+          <TouchableOpacity 
+            style={[styles.marketItem, styles.orangeItem]}
+            onPress={() => navigation.navigate('Detail')}
+          >
             <Image 
               source={{ uri: 'https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b' }} 
               style={styles.marketItemImage} 
@@ -108,7 +120,10 @@ const HomeScreen = () => {
             <Text style={styles.marketItemPrice}>₹100/kg</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.marketItem, styles.tomatoItem]}>
+          <TouchableOpacity 
+            style={[styles.marketItem, styles.tomatoItem]}
+            onPress={() => navigation.navigate('Detail')}
+          >
             <Image 
               source={{ uri: 'https://images.unsplash.com/photo-1561136594-7f68413baa99' }} 
               style={styles.marketItemImage} 
@@ -181,7 +196,10 @@ const HomeScreen = () => {
         <TouchableOpacity style={styles.navItem}>
           <Feather name="grid" size={24} color="#ccc" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity 
+          style={styles.navItem}
+          onPress={() => navigation.navigate('Detail')}
+        >
           <Feather name="user" size={24} color="#ccc" />
         </TouchableOpacity>
       </View>
@@ -189,14 +207,20 @@ const HomeScreen = () => {
   );
 };
 
-// Detail Screen (Right screen in the design)
-const DetailScreen = () => {
+// Detail Screen
+const DetailScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#2b7a2b" barStyle="light-content" />
       
-      {/* Header */}
+      {/* Header with Back Button */}
       <View style={styles.headerDetail}>
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Feather name="arrow-left" size={24} color="#fff" />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>FARMS</Text>
         <View style={styles.searchContainerSmall}>
           <Feather name="search" size={18} color="#888" />
@@ -316,7 +340,10 @@ const DetailScreen = () => {
         <TouchableOpacity style={styles.navItem}>
           <Feather name="users" size={24} color="#ccc" />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.navItem, styles.homeNavItem]}>
+        <TouchableOpacity 
+          style={[styles.navItem, styles.homeNavItem]}
+          onPress={() => navigation.navigate('Home')}
+        >
           <Feather name="home" size={24} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem}>
@@ -567,6 +594,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
   },
+  backButton: {
+    marginRight: 12,
+  },
   headerTitle: {
     flex: 1,
     color: '#fff',
@@ -788,17 +818,20 @@ const styles = StyleSheet.create({
   },
 });
 
-// App component to show both screens
+// App component with React Navigation
 const App = () => {
   return (
-    <View style={{ flex: 1, flexDirection: 'row' }}>
-      <View style={{ flex: 1 }}>
-        <HomeScreen />
-      </View>
-      <View style={{ flex: 1 }}>
-        <DetailScreen />
-      </View>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false
+        }}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Detail" component={DetailScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
